@@ -1,0 +1,12 @@
+Linhas:
+
+http://jamacedo.com/meudestino/consulta.php?op=linhas
+
+
+Horários:
+http://jamacedo.com/meudestino/consulta.php?op=linha&cod=806
+
+"/var/www/html/jamacedo.com/web/meudestino/conexao.php"
+
+
+\n:  mysql_connect() []: User 'jamacedo_2' has exceeded the 'max_user_connections' resource (current value: 1) in  on line \n\n:  mysql_select_db(): supplied argument is not a valid MySQL-Link resource in  on line \n\n:  mysql_query(): supplied argument is not a valid MySQL-Link resource in  on line \n\n:  mysql_error(): supplied argument is not a valid MySQL-Link resource in  on line \nerror: SET NAMES 'utf8'

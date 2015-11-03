@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "name": "Vixbus",
+  "description": "Horário dos ônibus Transcol (Grande Vitória - ES - Brasil).",
+  "icons": {
+    "16": "/icon16.png",
+    "48": "/icon48.png",
+    "128": "/icon128.png"
+  },
+  "developer": {
+    "name": "Jefrey Sobreira Santos",
+    "url": "http://jefrey.ml/vixbus"
+  },
+  "installs_allowed_from": ["*"],
+  "default_locale": "pt",
+  "launch_path": "/index.html",
+  "permissions": {
+  	"geolocation": {
+  		"description": "Necessário para mostrar o mapa do trânsito da sua localização"
+      }
+  }
+}

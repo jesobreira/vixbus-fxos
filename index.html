@@ -1,0 +1,208 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>VixBus</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css" />
+	<link rel="stylesheet" href="themes/firefoxos.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.mobile.simpledialog.css" /> 
+	<style type="text/css">
+		.hide {
+			display: none;
+		}
+
+		.ui-content
+		{
+		    margin-bottom:75px; /* before-footer size */
+		}
+	</style>
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<!-- <script src="js/touche.js"></script> -->
+	<script type="text/javascript" src="js/jquery.mobile.simpledialog2.js"></script>
+	<script src="js/storejs_json.min.js"></script>
+	<script src="js/helper.js"></script>
+</head>
+
+<body>
+
+<div data-role="page" id="home">
+
+	<div data-role="header">
+		<h1>VixBus</h1>
+		<a href="#sobre" class="ui-btn-right">Sobre</a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<h2>Linhas favoritas</h2>
+		<p id="nofav" style="display: none">Você ainda não adicionou nenhuma
+			linha favorita.</br>O que está esperando? 
+			Adicione as linhas nas quais sempre viaja!</p>
+		<div id="fav"></div>
+		<a data-role="button" href="#todas">Todas as linhas</a>
+		<a data-role="button" href="#transitovv">Notícias do trânsito</a>
+		<a data-role="button" href="#mapas">Mapa do trânsito</a>
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+<div data-role="page" id="sobre">
+
+	<div data-role="header">
+		<a href="#home" class="ui-btn-left">&lt; Voltar</a>
+		<h1>Sobre VixBus</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<h2>Sobre o VixBus</h2>
+		<p>Acompanhe os horários atualizados dos ônibus da linha
+			Transcol, da Grande Vitória (ES - Brasil) da palma
+			da sua mão!</p>
+		<p>Se você não possui internet móvel, basta carregar as
+			listas das quais precisará em casa (apenas abrindo-as),
+			pois o programa irá salvá-las automaticamente.</p>
+		<p>Este aplicativo para Firefox OS foi portado por
+			<a href="http://jefrey.ml/vixbus" target="_blank">Jefrey S. Santos</a>.</p>
+		<p>Todos os dados são obtidos através dos servidores do aplicativo
+			<a href="http://jamacedo.com/meudestinovix" target="_blank">Meu Destino Vix</a>, de autoria de <a href="http://jamacedo.com" target="_blank">José Alexandre Macedo</a>,
+			que, por sua vez, busca de fontes oficiais da GVBus.</p>
+		<p>O cumprimento dos horários é de responsabilidade da
+			GVBus.</p>
+		<p>Software não filiado ao GVBus.</p>
+		<p>Este software é de código aberto. Seu código está disponível
+			no <a href="http://github.com/jesobreira/vixbus-fxos">GitHub</a>.</p>
+		<a data-role="button" href="mailto:jefreysobreira+vixbus@gmail.com">Feedback</a>
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+<div data-role="page" id="transitovv">
+
+	<div data-role="header">
+		<a href="#home" class="ui-btn-left">&lt; Voltar</a>
+		<h1>Notícias do trânsito</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+			<a class="twitter-timeline" data-dnt="false" href="https://twitter.com/Transitovv" data-widget-id="652304683873214464">Tweets de @Transitovv</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+<div data-role="page" id="mapas">
+
+	<div data-role="header">
+		<a href="#home" class="ui-btn-left">&lt; Voltar</a>
+		<h1>Mapa do trânsito</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+			<div id="map" style="width: 100%; min-height: 300px;"></div>
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+<div data-role="page" id="todas">
+
+	<div data-role="header" data-position="fixed">
+		<a href="#home" class="ui-btn-left">&lt; Voltar</a>
+		<h1>Todas as linhas</h1>
+		<!--
+		<a href="javascript:void(0);" class="ui-btn-right" id="reloadtodas">Atualizar</a>
+		-->
+	</div><!-- /header -->
+	
+	<div role="main" class="ui-content">
+		<form class="ui-filterable">
+			<input id="rich-autocomplete-input" data-type="search" placeholder="Pesquisar" />
+		</form>
+		<ul data-role="listview" data-filter="true" data-inset="true" data-input="#rich-autocomplete-input" id="linhas"></ul>
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+<div data-role="page" id="verlinha">
+
+	<div data-role="header">
+		<h1 class="linha_cod"></h1>
+		<a href="#left-panel" data-icon="carat-r" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Itinerários</a>
+		<a href="#right-panel" data-icon="carat-l" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Mais</a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<!-- <center><h3><span class="p1_nome"></span> &middot; <span class="p2_nome"></span></h3></center> -->
+		
+		<div id="duteis" class="dataview ui-grid-a">
+			<h4>Dias úteis</h4>
+			<ul data-role="listview" class="p1 ui-block-a horarios"></ul>
+			<ul data-role="listview" class="p2 ui-block-b horarios"></ul>
+			<br/>
+		</div>
+		
+		<div id="dsab" class="dataview hide ui-grid-a">
+			<h4>Sábados</h4>
+			<ul data-role="listview" class="p1 ui-block-a horarios"></ul>
+			<ul data-role="listview" class="p2 ui-block-b horarios"></ul>
+			<br/>
+		</div>
+		
+		<div id="ddom" class="dataview hide ui-grid-a">
+			<h4>Domingos</h4>
+			<ul data-role="listview" class="p1 ui-block-a horarios"></ul>
+			<ul data-role="listview" class="p2 ui-block-b horarios"></ul>
+			<br/>
+		</div>
+		
+		<div id="datip" class="dataview hide ui-grid-a">
+			<h4>Dias atípicos</h4>
+			<ul data-role="listview" class="p1 ui-block-a horarios"></ul>
+			<ul data-role="listview" class="p2 ui-block-b horarios"></ul>
+			<br/>
+		</div>
+		
+		<div id="itinerario1" class="dataview hide ui-grid-a">
+			<h4>Itinerário (saída <span class="p1_nome"></span>)</h4>
+			<div id="p1_itinerario"></div><br/>
+		</div>
+		
+		<div id="itinerario2" class="dataview hide ui-grid-a">
+			<h4>Itinerário (saída <span class="p2_nome"></span>)</h4>
+			<div id="p2_itinerario"></div><br/>
+		</div>
+	</div><!-- /content -->
+	
+	<div data-role="panel" id="left-panel" data-theme="a">
+
+    	<h3>Horários</h3>
+    	<a class="datacall" rel="duteis" data-role="button">Dias úteis</a>
+		<a class="datacall" rel="dsab" data-role="button">Sábados</a>
+		<a class="datacall" rel="ddom" data-role="button">Domingos</a>
+		<a class="datacall" rel="datip" data-role="button">Dias atípicos</a>
+    </div><!-- /panel -->
+
+    <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="b">
+		<h3>Itinerários</h3>
+    	<a class="datacall p1_nome" rel="itinerario1" data-role="button"></a>
+		<a class="datacall p2_nome" rel="itinerario2" data-role="button"></a>
+
+    </div><!-- /panel -->
+	
+	<div data-role="footer" data-tap-toggle="false" data-theme="a" data-position="fixed" data-fullscreen="true">
+	    	<div data-role="navbar">
+				<ul>
+					<li><a href="#todas">Voltar</a></li>
+					<li><a href="#" id="favlabel"></a></li>
+				</ul>
+			</div><!-- /navbar -->
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+
+<!-- load faster -->
+	<script src="app.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+<!-- end load faster -->
+</body>
+</html>
